@@ -1,4 +1,4 @@
-package net.fabricmc.example;
+package com.iadorecherries.gcp;
 
 import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;

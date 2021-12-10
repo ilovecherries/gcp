@@ -19,11 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "com.iadorecherries.gcp.ExampleMod"
     ]
   },
+  "languageAdapters": {
+    "gcp": "com.iadorecherries.gcp.PreloadAdapter"
+  },
   "mixins": [
-    "modid.mixins.json"
   ],
 
   "depends": {
