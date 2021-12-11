@@ -76,6 +76,10 @@ public class ModInjector {
                     finder = new DirectoryModCandidateFinder(path, Util.loader.isDevelopmentEnvironment());
                 } else {
                     finder = new ThatOrThisDirectoryModCandidateFinder(path, Util.loader.isDevelopmentEnvironment(), (ModCandidate candidate) -> {
+                        if (candidate == null) {
+                            LOGGER.debug("Skipping unknown mod as it is a null value.");
+                            return false;
+                        }
                         boolean blacklisted = blacklist.contains(candidate.getId());
                         if(blacklisted)
                             LOGGER.debug("Skipping mod {} as per user request", candidate.getId());
