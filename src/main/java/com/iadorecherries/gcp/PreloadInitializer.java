@@ -32,8 +32,8 @@ public class PreloadInitializer {
             + "/mods/";
     private static final String GCP_FOLDER = MOD_FOLDER + "gcp/";
     private static final String EXPANDED_NAME_REGEX = "(?i)-[0-9].+\\.jar";
-    // private static final String DEFAULT_REPO = "Coney-Poney/mc-mods";
     private static final String DEFAULT_REPO = "Coney-Poney/minecraft-mods";
+    // private static final String DEFAULT_REPO = "ilovecherries/gcp-test";
 
     private @NotNull String trimVersionTag(@NotNull String name) {
         return name.replaceAll(EXPANDED_NAME_REGEX, "");

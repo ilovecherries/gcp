@@ -1,9 +1,11 @@
 package com.iadorecherries.gcp.thatorthis.internal;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.LanguageAdapter;
 import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.fabricmc.loader.impl.ModContainerImpl;
 import net.fabricmc.loader.impl.discovery.*;
 import net.fabricmc.loader.impl.gui.FabricGuiEntry;
+import net.fabricmc.loader.impl.launch.FabricLauncherBase;
 import net.fabricmc.loader.impl.util.SystemProperties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -87,9 +89,8 @@ public class ModInjector {
         });
 
         try {
-            Map<String, Set<ModCandidate>> env = new HashMap<>();
-            // TODO: NEED TO FIND THE PURPOSE OF ENV BECAUSE THAT'S WHAT'S GIVING ME ERRORS
-            return discoverer.discoverMods(Util.loader, env);
+            Map<String, Set<ModCandidate>> envDisabledMods = new HashMap<>();
+            return discoverer.discoverMods(Util.loader, envDisabledMods);
         } catch (ModResolutionException e) {
             FabricGuiEntry.displayCriticalError(e, true);
             return null; // Never reached
@@ -101,9 +102,9 @@ public class ModInjector {
                 .map((ModContainerImpl container) -> container.getMetadata().getId())
                 .collect(Collectors.toSet());
         try {
-            // TODO: NEED TO FIND THE PURPOSE OF ENV BECAUSE THAT'S WHAT'S GIVING ME ERRORS
-            Map<String, Set<ModCandidate>> env = new HashMap<>();
-            candidates = ModResolver.resolve(candidates, Util.loader.getEnvironmentType(), env).stream()
+            Map<String, Set<ModCandidate>> envDisabledMods = new HashMap<>();
+            EnvType envType = FabricLauncherBase.getLauncher().getEnvironmentType();
+            candidates = ModResolver.resolve(candidates, Util.loader.getEnvironmentType(), envDisabledMods).stream()
                     .filter((ModCandidate candidate) -> !loadedMods.contains(candidate.getId()))
                     .collect(Collectors.toList());
         } catch (ModResolutionException e) {
